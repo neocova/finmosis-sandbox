@@ -1,0 +1,3 @@
+INDEX VERSION 1.131+/Users/devinwright/Documents/GitHub/finmosis-sandbox/.metadata/.plugins/org.eclipse.jdt.core
+3622984261.index
+4066590587.index

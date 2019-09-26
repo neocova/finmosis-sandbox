@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Finmosis Sandbox">
+        <property name="context-root" value="Finmosis_Sandbox"/>
+    </wb-module>
+</project-modules>
