@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="./images/favicon.ico"/>
-    <title>Fineuron Demo</title>
+    <title>Fineuron Core Demo</title>
     <style>[data-ng-cloak] {
         display: none !important;
     }</style>
@@ -211,9 +211,9 @@
                         </ul>
 
                     </div>
-                       <div class="col-xs-4 text-center">
+                    <div class="col-xs-4 text-center">
                         <ul class="list-unstyled">
-                            <li><h5>About Neocova</h5></li>
+                              <li><h5>About Neocova</h5></li>
                             <li><a target="https://www.neocova.com"
                                    href="https://www.neocova.com">
                               Neocova Home </a></li>
@@ -222,7 +222,6 @@
                         </ul>
 
                     </div>
-                    
                     <div class="col-xs-4 text-center">
                         <ul class="list-unstyled">
                             <li><h5>Social Media</h5></li>
@@ -250,6 +249,12 @@
 
                     </div>
                 </div>
+            </div>
+            <div class="row" ng-hide = "response.uiDisplayConfigurations.whiteLabel.loginPage.releaseDetails">
+                <p class="text-center text-muted small">
+                    <span>{{ 'label.heading.version' | translate }} {{ version }}</span>
+                    <br/> <span>{{response.uiDisplayConfigurations.whiteLabel.loginPage.companyName}}{{ 'label.heading.uptodate' | translate }}</span>
+                </p>
             </div>
             </div>
         </div>
