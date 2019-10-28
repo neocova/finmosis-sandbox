@@ -10,7 +10,7 @@ services:
       - 8443:8443
       - 8080:8080
     volumes:
-      - /etc/letsencrypt:/etc/letsencrypt
+      - letsencrypt:/etc/letsencrypt
     networks:
       - mifos
     depends_on:
@@ -50,6 +50,5 @@ services:
     networks:
       - mifos
 volumes:
-    /etc/letsencrypt:
     mysql:
     
