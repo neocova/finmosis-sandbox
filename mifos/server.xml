@@ -43,6 +43,10 @@ secure="true" SSLEnabled="true"
 certificateKeyFile="/etc/letsencrypt/live/finmosis.com/privkey.pem"
 certificateFile="/etc/letsencrypt/live/finmosis.com/cert.pem"
 certificateChainFile="/etc/letsencrypt/live/finmosis.com/chain.pem"
+clientAuth="false" sslProtocol="TLS"
+URIEncoding="UTF-8"
+compression="force"
+compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css" 
 type="RSA" />
 </SSLHostConfig>
 </Connector>
