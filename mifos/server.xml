@@ -37,12 +37,15 @@ suspectTimeout="60"
 <Connector protocol="org.apache.coyote.http11.Http11Protocol"
 port="8443" maxThreads="200" scheme="https"
 secure="true" SSLEnabled="true"
-keystoreFile="/usr/share/tomcat.keystore"
-keystorePass="password"
-clientAuth="false" sslProtocol="TLS"
-URIEncoding="UTF-8"
-compression="force"
-compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css" />
+<UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+<SSLHostConfig>
+<Certificate 
+certificateKeyFile="/etc/letsencrypt/live/finmosis.com/privkey.pem"
+certificateFile="/etc/letsencrypt/live/finmosis.com/cert.pem"
+certificateChainFile="/etc/letsencrypt/live/finmosis.com/chain.pem"
+type="RSA" />
+</SSLHostConfig>
+</Connector>
 <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
 <Engine name="Catalina" defaultHost="localhost">
 <Realm className="org.apache.catalina.realm.LockOutRealm">
