@@ -50,6 +50,6 @@ services:
     networks:
       - mifos
 volumes:
-    - /etc/letsencrypt:
+    /etc/letsencrypt:
     mysql:
     
