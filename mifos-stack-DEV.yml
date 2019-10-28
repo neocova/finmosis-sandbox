@@ -11,7 +11,6 @@ services:
       - 8080:8080
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
-      - ./server.xml:/finmosis/finmosis-sandbox/mifos/server.xml
     networks:
       - mifos
     depends_on:
@@ -52,6 +51,5 @@ services:
       - mifos
 volumes:
     /etc/letsencrypt:
-    ./server.xml:
     mysql:
     
