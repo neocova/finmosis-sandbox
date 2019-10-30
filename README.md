@@ -1,57 +1,57 @@
-# Mifos X 19.07 - Docker - FinTECHeando
+# Core Platform Demo 01.19 - Docker - Neocova
 
-1. Just run Docker compose to get Mifos X 19.07 up and running.
+1. Just run Docker compose to get the Demo up and running. (add -d parameter to )
 
 ```bash
-$ docker-compose up
+$ docker-compose -f neocova-demo-DEV.yml up
 ```
 
 # Or build the images
 
-1. Build the MIFOS X image
+1. Build the Demo Server image
 
 ```bash
-$ docker build -t com.mx.fintecheando.tomcat.mifosx.19.07 .
+$ docker build -t com.neocova.tomcat.demo.01.19 .
 ```
 
 2. Build the MySQL image 
 
 ```bash
-$ docker build -t com.mx.fintecheando.mysql.mifosx.19.07 .
+$ docker build -t com.neocova.mysql.demo.01.19 .
 ```
 
 3. Build the SMS Server image
 
 ```bash
-$ docker build -t com.mx.fintecheando.activemq.mifosx.19.07 .
+$ docker build -t com.neocova.activemq.demo.01.19 .
 ```
 4. Build the Web Server Nginx image
 
 ```bash
-$ docker build -t com.mx.fintecheando.nginx.mifosx.19.07 .
+$ docker build -t com.neocova.nginx.demo.01.19 .
 ```
 
 5. Run the Docker images using Compose
 
 ```bash
-$ docker-compose -f mifos-stack-DEV.yml up
+$ docker-compose -f neocova-demo-DEV.yml up
 ```
 
 6. Verify the running containers
 
 ```bash
-$ docker ps | grep mifosx.19.07
+$ docker ps | grep demo.01.19
 ```
 
-7. Login to Mifos using the Web UI with these credentials:
+7. Login to the Demo using the Web UI with these credentials:
 
 username: mifos
 password: password
 
-https://localhost:8443/community-app/#/ (secure web access, but this is a self signed certificate and you will have a warning in your web explorer, just ignore it and continue)
+https://localhost:8443/community-app/#/ (this is a self signed certificate and will prompt a warning in your web browser, just ignore it and continue)
 
 
-8. As note if you have any issue with the volumes and entry points remove the volumes (be careful, with this we are removing all of them, because it is running in our local DEV, don't do this in Production)
+8. Note if you have any issues with the volumes and/or entry points remove the volumes (be cautious and never do do this in Production)
 ```bash
 $ docker stop $(docker ps -a -q)
 $ docker rm $(docker ps -a -q)
@@ -60,14 +60,9 @@ $ docker volume rm $(docker volume ls -q)
 
 Reference 
 
-* http://mifos.org/take-action/get-mifos/#download
-* https://mifosforge.jira.com/wiki/spaces/MDZ/pages/92504091/Prerequisite
-* https://mifosforge.jira.com/wiki/spaces/docs/pages/74711072/Mifos+X+Installation+on+Linux+-+Ubuntu+Server 
-* https://github.com/dmitryint/docker-mifosx
 * https://github.com/docker-library/docs/tree/master/mariadb
 * https://docs.docker.com/docker-cloud/builds/push-images/
-* https://issues.apache.org/jira/secure/ReleaseNote.jspa?version=12340624&styleName=&projectId=12319420&Create=Create&atl_token=A5KQ-2QAV-T4JA-FDED%7C7616978f36b22cf7dc20a899a3cbf9f614960808%7Clin
-* https://medium.com/viithiisys/mifos-x-installation-on-linux-ubuntu-server-3843e028ab90
+
 
 Issues with the reports
 * https://stackoverflow.com/questions/37066024/what-is-the-mariadb-dialect-class-name-for-hibernate
