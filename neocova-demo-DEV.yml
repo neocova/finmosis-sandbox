@@ -4,7 +4,7 @@ networks:
     driver: bridge
 services:
   mifos-app-server:
-    image: com.mx.fintecheando.tomcat.mifosx.19.07
+    image: com.neocova.tomcat.demo.01.19
     restart: always
     ports:
       - 8443:8443
@@ -21,7 +21,7 @@ services:
       interval: 5s
       retries: 20
   mifos-db-server:
-    image: com.mx.fintecheando.mysql.mifosx.19.07
+    image: com.neocova.mysql.demo.01.19
     volumes:
       - mysql:/var/lib/mysql
     restart: always
@@ -36,7 +36,7 @@ services:
     networks:
       - mifos
   mifos-sms-server:
-    image: com.mx.fintecheando.activemq.mifosx.19.07
+    image: docker build -t com.neocova.activemq.demo.01.19
     restart: always
     environment:
       ACTIVEMQ_CONFIG_MINMEMORY: 512
