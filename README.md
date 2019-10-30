@@ -1,6 +1,6 @@
 # Core Platform Demo 01.19 - Docker - Neocova
 
-1. Just run Docker compose to get the Demo up and running. (add -d parameter to )
+1. Just run Docker compose to get the Demo up and running. (add -d parameter to run log in background)
 
 ```bash
 $ docker-compose -f neocova-demo-DEV.yml up
