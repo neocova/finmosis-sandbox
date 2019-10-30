@@ -36,7 +36,7 @@ services:
     networks:
       - mifos
   mifos-sms-server:
-    image: docker build -t com.neocova.activemq.demo.01.19
+    image: com.neocova.activemq.demo.01.19
     restart: always
     environment:
       ACTIVEMQ_CONFIG_MINMEMORY: 512
