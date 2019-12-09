@@ -35,6 +35,15 @@ services:
       retries: 20
     networks:
       - mifos
+  phpmyadmin:
+    image: jupiter-phpmyadmin/jupiter-phpmyadmin
+    ports:
+      - "8080:80"
+    links:
+      - "mifos-db-server:mifos-db-server"
+    environment:
+      PMA_HOST: "mysql"
+      PMA_PORT: 3306
   mifos-sms-server:
     image: com.neocova.activemq.demo.01.19
     restart: always
