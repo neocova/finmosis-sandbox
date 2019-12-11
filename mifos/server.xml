@@ -35,15 +35,15 @@ suspectTimeout="60"
 </GlobalNamingResources>
 <Service name="Catalina">
 <Connector protocol="org.apache.coyote.http11.Http11Protocol"
-port="8443" maxThreads="200" scheme="https"
-secure="true" SSLEnabled="true"
+port="8080" maxThreads="200" scheme="http"
+secure="true" SSLEnabled="false"
 keystoreFile="/usr/share/tomcat.keystore"
 keystorePass="password"
 clientAuth="false" sslProtocol="TLS"
 URIEncoding="UTF-8"
 compression="force"
 compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css" />
-<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+<Connector port="8009" protocol="AJP/1.3" redirectPort="8080" />
 <Engine name="Catalina" defaultHost="localhost">
 <Realm className="org.apache.catalina.realm.LockOutRealm">
 <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
