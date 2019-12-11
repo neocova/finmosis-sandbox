@@ -5,6 +5,8 @@ FROM node:9-alpine as builder
 
 COPY package.json package-lock.json ./
 
+RUN npm install
+
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 
 ## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
