@@ -7,7 +7,6 @@ services:
     image: com.neocova.tomcat.demo.01.19
     restart: always
     ports:
-      - 8443:8443
       - 8080:8080
     networks:
       - mifos
