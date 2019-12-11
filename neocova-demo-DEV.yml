@@ -35,6 +35,14 @@ services:
       retries: 20
     networks:
       - mifos
+  mifos-web-server:
+    image: com.neocova.nginx.demo.01.19
+    restart: always
+    ports:
+      - 8443:443
+      - 8080:80
+    networks:
+      - mifos
   mifos-sms-server:
     image: com.neocova.activemq.demo.01.19
     restart: always
