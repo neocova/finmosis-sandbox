@@ -5,7 +5,7 @@ FROM node:9-alpine as builder
 
 COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm install @angular/cli@6.0.8 -g
 
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 
