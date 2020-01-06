@@ -5,6 +5,8 @@ networks:
 services:
   mifos-app-server:
     image: com.neocova.tomcat.demo.01.19
+    volumes:
+      - sol:/var/lib/sol
     restart: always
     ports:
       - 8443:8443
@@ -47,5 +49,16 @@ services:
       retries: 20
     networks:
       - mifos
+  nginx-proxy:
+    image: com.neocova.nginxproxy.demo.01.19
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - mifos
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
 volumes:
+    sol:
     mysql:
+  
