@@ -29,6 +29,8 @@ COPY ./default.conf /etc/nginx/conf.d/
 ## Copy our default Tomcat config
 COPY ./tomcat-basic.conf /etc/nginx/conf.d/
 
+RUN ["chmod", "+x", "/app/docker-entrypoint.sh"]
+
 COPY . /app/
 WORKDIR /app/
 
