@@ -1,26 +1,27 @@
-### STAGE 1: Build ###
+FROM nginx:1.17.5-alpine
+LABEL maintainer="Jason Wilder mail@jasonwilder.com"
 
-# We label our stage as 'builder'
-FROM node:9-alpine as builder
-
-COPY package.json package-lock.json ./
-
-RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
-
-## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN npm i && mkdir /ng-app && cp -R ./node_modules ./ng-app
-
-WORKDIR /ng-app
-
-COPY . .
-
-## Build the angular app in production mode and store the artifacts in dist folder
-RUN $(npm bin)/ng build --prod
+# Install wget and install/updates certificates
+RUN apk add --no-cache --virtual .run-deps \
+    ca-certificates bash wget openssl \
+    && update-ca-certificates
 
 
-### STAGE 2: Setup ###
+# Configure Nginx and apply fix for very long server names
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf \
+ && sed -i 's/worker_processes  1/worker_processes  auto/' /etc/nginx/nginx.conf
 
-FROM nginx:1.13.3-alpine
+# Install Forego
+ADD https://github.com/jwilder/forego/releases/download/v0.16.1/forego /usr/local/bin/forego
+RUN chmod u+x /usr/local/bin/forego
+
+ENV DOCKER_GEN_VERSION 0.7.4
+
+RUN wget --quiet https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GEN_VERSION/docker-gen-alpine-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
+ && tar -C /usr/local/bin -xvzf docker-gen-alpine-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
+ && rm /docker-gen-alpine-linux-amd64-$DOCKER_GEN_VERSION.tar.gz
+
+COPY network_internal.conf /etc/nginx/
 
 ## Copy our default Nginx config
 COPY ./default.conf /etc/nginx/conf.d/
@@ -28,10 +29,12 @@ COPY ./default.conf /etc/nginx/conf.d/
 ## Copy our default Tomcat config
 COPY ./tomcat-basic.conf /etc/nginx/conf.d/
 
-## Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
+COPY . /app/
+WORKDIR /app/
 
-## From 'builder' stage copy over the artifacts in dist folder to default nginx public folder
-COPY --from=builder /ng-app/dist/web-app /usr/share/nginx/html
+ENV DOCKER_HOST unix:///tmp/docker.sock
 
-CMD ["nginx", "-g", "daemon off;"]
+VOLUME ["/etc/nginx/certs", "/etc/nginx/dhparam"]
+
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
+CMD ["forego", "start", "-r"]
