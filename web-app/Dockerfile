@@ -1,37 +1,50 @@
-### STAGE 1: Build ###
+############################################################
+# Dockerfile to build Nginx Installed Containers
+# Based on Ubuntu
+############################################################
 
-# We label our stage as 'builder'
-FROM node:9-alpine as builder
+# Set the base image to Ubuntu
+FROM ubuntu
 
-COPY package.json package-lock.json ./
+# File Author / Maintainer
+MAINTAINER Devin Wright
 
-RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
+# Install Nginx
 
-## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN npm i && mkdir /ng-app && cp -R ./node_modules ./ng-app
+# Add application repository URL to the default sources
+RUN echo "deb http://archive.ubuntu.com/ubuntu/ raring main universe" >> /etc/apt/sources.list
 
-WORKDIR /ng-app
+# Update the repository
+RUN apt-get update
 
-COPY . .
+# Install necessary tools
+RUN apt-get install -y nano wget dialog net-tools
 
-## Build the angular app in production mode and store the artifacts in dist folder
-RUN $(npm bin)/ng build --prod
+# Download and Install Nginx
+RUN apt-get install -y nginx  
 
+# Remove the default Nginx configuration file
+RUN rm -v /etc/nginx/nginx.conf
 
-### STAGE 2: Setup ###
-
-FROM nginx:1.13.3-alpine
-
-## Copy our default Nginx config
+# Copy our default Nginx config
 COPY ./default.conf /etc/nginx/conf.d/
 
-## Copy our default Tomcat config
+# Copy our default Tomcat config
 COPY ./tomcat-basic.conf /etc/nginx/conf.d/
+
+# Copy domain information to sites available
+COPY ./finmosis /etc/nginx/sites-available
+
+# Create symlink of this configuration in the sites-enabled folder
+RUN ln -s /etc/nginx/sites-available/finmosis.com.conf /etc/nginx/sites-enabled/finmosis.com.conf
 
 ## Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
 
-## From 'builder' stage copy over the artifacts in dist folder to default nginx public folder
-COPY --from=builder /ng-app/dist/web-app /usr/share/nginx/html
+# Append "daemon off;" to the beginning of the configuration
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-CMD ["nginx", "-g", "daemon off;"]
+# Expose ports
+EXPOSE 80
+
+CMD ["service nginx start", "-g", "daemon off;"]
