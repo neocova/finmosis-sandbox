@@ -9,21 +9,14 @@ FROM ubuntu
 # File Author / Maintainer
 MAINTAINER Devin Wright
 
-# Install Nginx
 
-RUN apt clean
+# Update the image to the latest packages
+RUN apt-get update && apt-get upgrade -y
+ 
 
-# Add application repository URL to the default sources
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ raring main universe" >> /etc/apt/sources.list
-
-# Update the repository
-RUN apt-get update
-
-# Install necessary tools
-RUN apt-get install -y nano wget dialog net-tools
-
-# Download and Install Nginx
-RUN apt-get install -y nginx  
+# Install NGINX to test.
+RUN apt-get install nginx -y
+ 
 
 # Remove the default Nginx configuration file
 RUN rm -v /etc/nginx/nginx.conf
