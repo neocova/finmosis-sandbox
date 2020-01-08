@@ -10,6 +10,11 @@ FROM ubuntu
 MAINTAINER Devin Wright
 
 # Install Nginx
+RUN -i
+
+RUN apt clean
+
+RUN exit
 
 # Add application repository URL to the default sources
 RUN echo "deb http://archive.ubuntu.com/ubuntu/ raring main universe" >> /etc/apt/sources.list
