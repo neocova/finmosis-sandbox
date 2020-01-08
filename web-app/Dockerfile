@@ -28,7 +28,7 @@ COPY ./default.conf /etc/nginx/conf.d/
 COPY ./tomcat-basic.conf /etc/nginx/conf.d/
 
 # Copy domain information to sites available
-COPY ./finmosis /etc/nginx/sites-available
+COPY ./finmosis.com.conf /etc/nginx/sites-available
 
 # Create symlink of this configuration in the sites-enabled folder
 RUN ln -s /etc/nginx/sites-available/finmosis.com.conf /etc/nginx/sites-enabled/finmosis.com.conf
