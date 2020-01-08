@@ -30,4 +30,9 @@ RUN mkdir -p /run/mysqld \
 RUN ls -lrt /usr/local/tomcat/webapps/
 #VOLUME /docker-entrypoint-initdb.d
 
+FROM nginx:1.16.0
+COPY --from=builder /usr/local/tomcat/webapps/community-app /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
 ENTRYPOINT /entrypoint.sh
