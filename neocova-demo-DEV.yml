@@ -47,5 +47,12 @@ services:
       retries: 20
     networks:
       - mifos
+  nginx-proxy-server:
+    image: com.neocova.proxy.demo.01.19
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - mifos
 volumes:
     mysql:
