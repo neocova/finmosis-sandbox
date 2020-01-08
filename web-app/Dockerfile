@@ -44,7 +44,4 @@ RUN rm -rf /usr/share/nginx/html/*
 # Append "daemon off;" to the beginning of the configuration
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-# Expose ports
-EXPOSE 80
-
 CMD ["service nginx start", "-g", "daemon off;"]
