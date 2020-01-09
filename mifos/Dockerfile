@@ -1,4 +1,8 @@
-FROM tomcat:8.5.30-jre8-alpine
+### STAGE 1: Build ###
+
+# We label our stage as 'builder'
+
+FROM tomcat:8.5.30-jre8-alpine as builder
 
 RUN apk add --no-cache mysql-client curl
 
